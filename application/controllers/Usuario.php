@@ -136,7 +136,23 @@ class Usuario extends CI_Controller {
         
     }
 
-    
+    public function usuario_atualizar(){
+
+        if(!isset($_SESSION["logado"]) and $_SESSION["logado"] != true){
+            redirect("/");
+        }
+        
+        $this->load->model("usuario_model", "usermodel");
+
+        if($this->usermodel->editar_usuarios($this->input->post())){
+            $this->session->set_flashdata("success", "Usuário editado com sucesso!");
+        } else {
+            $this->session->set_flashdata('error', 'Ocorreu um erro! Não é possível editar este usuário!');
+        }
+
+        redirect('user_list');
+
+    }
 
     public function usuario_logout(){
         

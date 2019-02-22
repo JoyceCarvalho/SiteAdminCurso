@@ -27,6 +27,21 @@ class Usuario_model extends CI_Model {
 
     }
 
+    public function editar_usuarios($dados){
+        
+        $update = array(
+            "nome"      => $dados["nome"],
+            "usuario"   => $dados["usuario"],
+            "email"     => $dados["email"]
+        );
+
+        $id = $dados['idusuario'];
+        
+        $this->db->where("id", $id);
+        return $this->db->update("cpanel_user", $update);
+
+    }
+
     /**
      * Verifica se o usuario e senha fornecidos conferem com os dados do banco
      *
@@ -64,7 +79,7 @@ class Usuario_model extends CI_Model {
     public function dados_usuario($usuario){
         
         $this->db->from('cpanel_user');
-        $this->db->where("usuario = '{$usuario}'");
+        $this->db->where("id = '{$usuario}'");
         $this->db->limit(1);
 
         return $this->db->get('')->row();

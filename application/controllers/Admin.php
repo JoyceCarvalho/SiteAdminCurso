@@ -65,8 +65,16 @@ class Admin extends CI_Controller {
             redirect("/");
         }
 
+        $id = $this->input->post("idusuario");
+
+        $this->load->model("usuario_model", "usermodel");
+
+        $this->usermodel->dados_usuario($id);
+
         $data["menu_ativo"] = "usuarios";
         $data["submenu_ativo"] = "u_list";
+
+        $data["dados_usuario"] = $this->usermodel->dados_usuario($id);
 
         $this->load->view("template-admin/html_header", $data);
         $this->load->view("template-admin/header");
