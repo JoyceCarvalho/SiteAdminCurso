@@ -27,6 +27,12 @@ class Usuario_model extends CI_Model {
 
     }
 
+    /**
+     * Edição de dados dos usuários cadastrados no sistema
+     *
+     * @param array $dados
+     * @return int
+     */
     public function editar_usuarios($dados){
         
         $update = array(
@@ -36,10 +42,23 @@ class Usuario_model extends CI_Model {
         );
 
         $id = $dados['idusuario'];
-        
+
         $this->db->where("id", $id);
         return $this->db->update("cpanel_user", $update);
 
+    }
+
+    /**
+     * Exclui usuários do sistema
+     *
+     * @param array $dados
+     * @return boolean
+     */
+    public function excluir_usuarios($dados){
+        $id = $dados["idusuario"];
+
+        $this->db->where("id", $id);
+        return $this->db->delete("cpanel_user");
     }
 
     /**

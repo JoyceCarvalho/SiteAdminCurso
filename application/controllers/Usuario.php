@@ -85,54 +85,13 @@ class Usuario extends CI_Controller {
         $this->load->model("usuario_model", "usermodel");
         $this->load->library('form_validation');
 
-        $config = array(
-            array(
-                'field' => 'nome',
-                'label' => 'Nome Completo',
-                'rules' => 'required|alpha'
-            ),
-            array(
-                'field' => 'usuario',
-                'label' => 'Usuário',
-                'rules' => 'required|alpha_numeric'
-            ),
-            array(
-                'field' => 'senha',
-                'label' => 'Senha',
-                'rules' => 'required|alpha_numeric',
-                'errors' => array(
-                    'required' => 'You must provide a %s.',
-                ),
-            ),
-            array(
-                'field' => 'email',
-                'label' => 'Email',
-                'rules' => 'required|valid_email'
-            )
-        );
-
-        $this->form_validation->set_rules($config);
-
-        if($this->form_validation->run() === FALSE){
-
-            $this->session->set_flashdata("error", "Erro! Não foi possivel cadastrar o usuário!");
-
-            redirect("user_insert");
-
+        if($this->usermodel->cadastrar_usuarios($this->input->post())){                
+            $this->session->set_flashdata('success', "Usuário cadastrado com sucesso!");
         } else {
-
-            if($this->usermodel->cadastrar_usuarios($this->input->post())){
-                
-                $this->session->set_flashdata('success', "Usuário cadastrado com sucesso");
-
-                redirect("user_insert");
-
-            } else {
-                $this->session->set_flashdata("error", "Ocorreu um Erro! Não foi possível cadastrar o usuário!");
-                redirect("user_insert");
-            }
-
+            $this->session->set_flashdata("error", "Ocorreu um Erro! Não foi possível cadastrar o usuário!");
         }
+
+        redirect("user_insert");
         
     }
 
@@ -151,6 +110,24 @@ class Usuario extends CI_Controller {
         }
 
         redirect('user_list');
+
+    }
+
+    public function usuario_excluir(){
+
+        if(!isset($_SESSION["logado"]) and ($_SESSION["logado"] != true)){
+            redirect("/");
+        }
+
+        $this->load->model("usuario_model", "usermodel");
+
+        if($this->usermodel->excluir_usuarios($this->input->post())){
+            $this->session->set_flashdata("success", "Usuário excluido com sucesso");
+        } else {
+            $this->session->set_flashdata("error", "Ocorreu um erro! Não foi possível deletar este usuário");
+        }
+
+        redirect("user_list");
 
     }
 

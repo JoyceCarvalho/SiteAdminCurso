@@ -61,3 +61,4 @@ $route["user_list"]     = "admin/usuario";
 $route["user_cad"]      = "usuario/usuario_cadastro";
 $route["user_update"]   = "admin/usuario_edicao";
 $route["user_edit"]     = "usuario/usuario_atualizar";
+$route["user_remove"]   = "usuario/usuario_excluir";

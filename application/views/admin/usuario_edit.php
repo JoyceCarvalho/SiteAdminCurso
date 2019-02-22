@@ -51,10 +51,11 @@
                                 <input class="form-control" name="usuario" id="inputDefault" type="text" value="<?=$dados_usuario->usuario?>">
                             </div>
                             <div class="form-group" style="text-align: right">
-                                <button type="button" data-toggle="modal" data-target="#changePassword" class="btn btn-sm btn-success"><i class="fa fa-key"></i> Alterar senha</button>
+                                <button type="button" data-toggle="modal" data-target="#changePassword" class="btn btn-success"><i class="fa fa-key"></i> Alterar senha</button>
                             </div>
                             <div class="tile-footer">
-                                <button class="btn btn-primary" type="submit">Cadastrar</button>
+                                <a href="<?=base_url('user_list');?>" class="btn btn-secondary"><i class="fa fa-arrow-left"></i> Voltar</a>
+                                <button class="btn btn-primary" type="submit"><i class="fa fa-save"></i> Alterar</button>
                             </div>
                         </form>
                     </div>

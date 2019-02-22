@@ -54,7 +54,7 @@
                                 <input class="form-control" name="senha" id="exampleInputPassword1" type="password" placeholder="Senha">
                             </div>
                             <div class="tile-footer">
-                                <button class="btn btn-primary" type="submit">Cadastrar</button>
+                                <button class="btn btn-primary" type="submit"><i class="fa fa-save"></i> Cadastrar</button>
                             </div>
                         </form>
                     </div>
