@@ -54,6 +54,7 @@
                                 <input class="form-control" name="senha" id="exampleInputPassword1" type="password" placeholder="Senha">
                             </div>
                             <div class="tile-footer">
+                                <a href="<?=base_url("user_list");?>" class="btn btn-secondary"><i class="fa fa-arrow-left"></i> Listar Usuários</a>
                                 <button class="btn btn-primary" type="submit"><i class="fa fa-save"></i> Cadastrar</button>
                             </div>
                         </form>

@@ -1,135 +1,93 @@
 <main class="app-content">
-      <div class="app-title">
-        <div>
-          <h1><i class="fa fa-edit"></i> Custom Form Elements</h1>
-          <p>Customized form elements</p>
+  <div class="app-title">
+    <div>
+      <h1><i class="fa fa-edit"></i> Cadastro de facilitador</h1>
+      <p>Área administrativa</p>
+    </div>
+    <ul class="app-breadcrumb breadcrumb">
+      <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
+      <li class="breadcrumb-item"><a href="<?=base_url("facilitador_list");?>"> Facilitador </a></li>
+      <li class="breadcrumb-item">Cadastro de Facilitador</li>
+    </ul>
+  </div>
+  <div class="row">
+    <?php if (validation_errors()) : ?>
+      <div class="col-md-12">
+        <div class="alert alert-danger" role="alert">
+            <?= validation_errors() ?>
         </div>
-        <ul class="app-breadcrumb breadcrumb">
-          <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
-          <li class="breadcrumb-item">Forms</li>
-          <li class="breadcrumb-item"><a href="#">Custom Componants</a></li>
-        </ul>
       </div>
-      <div class="row">
-        <div class="col-md-6">
-          <div class="tile">
-            <h3 class="tile-title">Animated Checkbox and Radio Buttons</h3>
-            <!--Radio Button Markup-->
-            <div class="animated-radio-button">
-              <label>
-                <input type="radio"><span class="label-text">Radio Button</span>
-              </label>
+    <?php endif; ?>
+    <?php if($this->session->flashdata('error') == TRUE): ?>
+        <div class="col-md-12">
+            <div class="alert alert-danger" role="alert">
+                <?= $this->session->flashdata('error'); ?>
             </div>
-            <!--Checkbox Markup-->
-            <div class="animated-checkbox">
-              <label>
-                <input type="checkbox"><span class="label-text">Checkbox</span>
-              </label>
-            </div>
-            <h4>Disabled state</h4>
-            <div class="animated-radio-button">
-              <label>
-                <input type="radio" disabled=""><span class="label-text">Radio Button</span>
-              </label>
-            </div>
-            <div class="animated-checkbox">
-              <label>
-                <input type="checkbox" disabled=""><span class="label-text">Checkbox</span>
-              </label>
-            </div>
-          </div>
         </div>
-        <div class="col-md-6">
-          <div class="tile">
-            <h3 class="tile-title">Animated Toggle Button</h3>
-            <div class="row">
-              <div class="col-md-6">
-                <p><b>Toggle Button</b></p>
-                <div class="toggle">
-                  <label>
-                    <input type="checkbox"><span class="button-indecator"></span>
-                  </label>
-                </div>
-                <div class="toggle lg">
-                  <label>
-                    <input type="checkbox"><span class="button-indecator"></span>
-                  </label>
-                </div>
-                <h5>Disabled state</h5>
-                <div class="toggle">
-                  <label>
-                    <input type="checkbox" disabled=""><span class="button-indecator"></span>
-                  </label>
+    <?php endif; ?>
+    <?php if($this->session->flashdata('success') == TRUE): ?>
+        <div class="col-md-12">
+            <div class="alert alert-success" role="alert">
+                <?= $this->session->flashdata('success'); ?>
+            </div>
+        </div>
+    <?php endif; ?>
+    <?php if($this->session->flashdata('warning') == TRUE): ?>
+        <div class="col-md-12">
+            <div class="alert alert-warning" role="alert">
+                <?= $this->session->flashdata('warning'); ?>
+            </div>
+        </div>
+    <?php endif; ?>
+    <div class="col-md-12">
+      <div class="tile">
+        <div class="row">
+          <div class="col-lg-12">
+            <?= form_open_multipart("facilitador_cad"); ?>
+              <div class="form-group">
+                <label class="col-form-label" for="inputDefault">Nome Completo</label>
+                <input class="form-control" name="nome" id="inputDefault" type="text" placeholder="Nome">
+              </div>
+              <div class="form-group">
+                <label for="inputDefault">Formação</label>
+                <textarea name="formacao" id="formacao" cols="30" rows="10"></textarea>
+              </div>  
+              <div class="form-group">
+                <label class="col-form-label" for="inputDefault">Facebook</label>
+                <div class="input-group flex-nowrap">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="addon-wrapping"><i class="fa fa-facebook"></i></span>
+                  </div>
+                  <input type="text" class="form-control" name="facebook" placeholder="https://link" aria-describedby="addon-wrapping">
                 </div>
               </div>
-              <div class="col-md-6">
-                <p><b>Fliping Toggle Button</b></p>
-                <div class="toggle-flip">
-                  <label>
-                    <input type="checkbox"><span class="flip-indecator" data-toggle-on="ON" data-toggle-off="OFF"></span>
-                  </label>
-                </div>
-                <h5>Disabled state</h5>
-                <div class="toggle-flip">
-                  <label>
-                    <input type="checkbox" disabled=""><span class="flip-indecator" data-toggle-on="ON" data-toggle-off="OFF"></span>
-                  </label>
+              <div class="form-group">
+                <label class="col-form-label" for="inputDefault">Linkedin</label>
+                <div class="input-group flex-nowrap">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="addon-wrapping"><i class="fa fa-linkedin"></i></span>
+                  </div>
+                  <input type="text" class="form-control" name="linkedin" placeholder="https://link" aria-describedby="addon-wrapping">
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-        <div class="clearfix"></div>
-        <div class="col-md-6">
-          <div class="tile">
-            <div class="tile-title-w-btn">
-              <h3 class="title">Select2</h3>
-              <p><a class="btn btn-primary icon-btn" href="https://select2.github.io/examples.html" target="_blank"><i class="fa fa-file"></i>Docs</a></p>
-            </div>
-            <div class="tile-body">
-              <p>This plugin can be used to convert select element into advanced componant.</p>
-              <h4>Demo</h4>
-              <select class="form-control" id="demoSelect" multiple="">
-                <optgroup label="Select Cities">
-                  <option>Ahmedabad</option>
-                  <option>Surat</option>
-                  <option>Vadodara</option>
-                  <option>Rajkot</option>
-                  <option>Bhavnagar</option>
-                  <option>Jamnagar</option>
-                  <option>Gandhinagar</option>
-                  <option>Nadiad</option>
-                  <option>Morvi</option>
-                  <option>Surendranagar</option>
-                  <option>Junagadh</option>
-                  <option>Gandhidham</option>
-                  <option>Veraval</option>
-                  <option>Ghatlodiya</option>
-                  <option>Bharuch</option>
-                  <option>Anand</option>
-                  <option>Porbandar</option>
-                  <option>Godhra</option>
-                  <option>Navsari</option>
-                  <option>Dahod</option>
-                  <option>Botad</option>
-                  <option>Kapadwanj</option>
-                </optgroup>
-              </select>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="tile">
-            <div class="tile-title-w-btn">
-              <h3 class="title">Date Picker</h3>
-              <p><a class="btn btn-primary icon-btn" href="http://bootstrap-datepicker.readthedocs.org/en/stable/options.html" target="_blank"><i class="fa fa-file"></i>Docs</a></p>
-            </div>
-            <div class="tile-body">
-              <p>This plugin can be used to let the user select the date in a convinient way.</p>
-              <h4>Demo</h4>
-              <input class="form-control" id="demoDate" type="text" placeholder="Select Date">
-            </div>
+              <div class="form-group">
+                <label for="exampleInputPassword1">Foto</label>
+                <input class="form-control" type="file" name="foto_fac">
+              </div>
+              <div class="tile-footer">
+                <a href="<?=base_url("facilitador_list");?>" class="btn btn-secondary"><i class="fa fa-arrow-left"></i> Listar Facilitadores</a>
+                <button class="btn btn-primary" type="submit"><i class="fa fa-save"></i> Cadastrar</button>
+              </div>
+            </form>
           </div>
         </div>
       </div>
-    </main>
+    </div>
+  </div>
+</main>
+<script src="<?=base_url("assets/ckeditor/ckeditor.js");?>"></script>
+<script type="text/javascript">
+	    window.onload = function () {
+		    CKEDITOR.replace('formacao');
+	    };
+	</script>

@@ -2,7 +2,7 @@
 defined("BASEPATH") or exit("No direct script access allowed");
 class Admin extends CI_Controller {
     
-    function __construct(){
+    public function __construct(){
         parent::__construct();
     }
 
@@ -90,6 +90,27 @@ class Admin extends CI_Controller {
             redirect("/");
         }
 
+        $this->load->model("facilitador_model", "facilitadormodel");
+
+        $data["facilitador_dados"] = $this->facilitadormodel->listar_facilitador();
+
+        $data["menu_ativo"] = "facilitadores";
+        $data["submenu_ativo"] = "f_list";
+
+        $this->load->view("template-admin/html_header", $data);
+        $this->load->view("template-admin/header");
+        $this->load->view("template-admin/aside");
+        $this->load->view("admin/facilitador_list");
+        $this->load->view("template-admin/footer");
+
+    }
+
+    public function facilitador_form(){
+
+        if(!isset($_SESSION["logado"]) and ($_SESSION["logado"] != true)){
+            redirect("/");
+        }
+
         $data["menu_ativo"] = "facilitadores";
         $data["submenu_ativo"] = "f_cad";
 
@@ -97,6 +118,29 @@ class Admin extends CI_Controller {
         $this->load->view("template-admin/header");
         $this->load->view("template-admin/aside");
         $this->load->view("admin/facilitador_cad");
+        $this->load->view("template-admin/footer");
+
+    }
+
+    public function facilitador_edicao(){
+
+        if((!isset($_SESSION["logado"])) and ($_SESSION["logado"] != true)){
+            redirect("/");
+        }
+
+        $id = $this->input->post("idfacilitador");
+
+        $this->load->model("facilitador_model", "facilitadormodel");
+
+        $data["facilitador"] = $this->facilitadormodel->dados_facilitador($id);
+
+        $data["menu_ativo"] = "facilitadores";
+        $data["submenu_ativo"] = "f_list";
+
+        $this->load->view("template-admin/html_header", $data);
+        $this->load->view("template-admin/header");
+        $this->load->view("template-admin/aside");
+        $this->load->view("admin/facilitador_edit");
         $this->load->view("template-admin/footer");
 
     }
