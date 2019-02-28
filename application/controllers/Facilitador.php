@@ -90,7 +90,42 @@ class Facilitador extends CI_Controller {
             redirect("/");
         }
 
-        
+        $this->load->model("facilitador_model", "facilitadormodel");
+
+        $arrayDados = array(
+            "nome"      => $this->input->post("nome"),
+            "graduacao" => $this->input->post("formacao"),
+            "facebook"  => $this->input->post("facebook"),
+            "linkedin"  => $this->input->post("linkedin")
+        );
+
+        if(!empty($this->input->post("foto_fac"))) {
+
+            $arrayDados["fk_idfoto"] = $this->input->post("foto_fac");
+
+        }
+
+        if($this->facilitadormodel->editar_facilitador($arrayDados, $this->input->post("idfacilitador"))){
+
+            $this->session->set_flashdata("success", "Dados editados com sucesso!");
+            redirect("facilitador_list");
+
+        } else {
+
+            $this->session->set_flashdata("error", "Ocorreu um problema ao atualizar os dados!");
+            redirect("facilitador_list");
+            
+        }
+
+    }
+
+    public function facilitador_excluir(){
+
+        if(!isset($_SESSION["logado"]) and ($_SESSION["logado"] != true)){
+            redirect("/");
+        }
+
+        $idfacilitador = $this->input->post("idfacilitador");
 
     }
 

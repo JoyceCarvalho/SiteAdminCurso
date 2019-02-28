@@ -28,6 +28,18 @@ class Facilitador_model extends CI_Model {
     }
 
     /**
+     * Atualizar dados no banco
+     *
+     * @param array $dados
+     * @param int $id
+     * @return boolean
+     */
+    public function editar_facilitador($dados, $id){
+        $this->db->where("id", $id);
+        return $this->db->update("tbfacilitador", $dados);
+    }
+
+    /**
      * Retorna dados de facilitador
      *
      * @param int $id

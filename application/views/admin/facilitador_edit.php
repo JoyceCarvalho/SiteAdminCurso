@@ -44,6 +44,7 @@
         <div class="row">
           <div class="col-lg-12">
             <?= form_open_multipart("facilitador_edit"); ?>
+              <input type="hidden" name="idfacilitador" value="<?=$facilitador->id?>">
               <div class="form-group">
                 <label class="col-form-label" for="inputDefault">Nome Completo</label>
                 <input class="form-control" name="nome" id="inputDefault" type="text" value="<?=$facilitador->nome;?>">
@@ -72,7 +73,7 @@
               </div>
               <div class="row col-sm-12">
                 <div class="form-group col-sm-6">
-                    <label for="exampleInputPassword1">Foto</label>
+                    <label for="exampleInputPassword1">Foto (Alterar)</label>
                     <input class="form-control" type="file" name="foto_fac">
                 </div>
                 <div class="form-group col-sm-6">
