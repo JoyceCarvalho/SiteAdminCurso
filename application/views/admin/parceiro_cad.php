@@ -69,7 +69,7 @@
 </main>
 <script src="<?=base_url("assets/ckeditor/ckeditor.js");?>"></script>
 <script type="text/javascript">
-	    window.onload = function () {
-		    CKEDITOR.replace('formacao');
-	    };
-	</script>
+    window.onload = function () {
+        CKEDITOR.replace('formacao');
+    };
+</script>
