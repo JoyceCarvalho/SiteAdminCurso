@@ -127,6 +127,23 @@ class Facilitador extends CI_Controller {
 
         $idfacilitador = $this->input->post("idfacilitador");
 
+        $this->load->model("facilitador_model", "facilitadormodel");
+
+        if(!empty($idfacilitador)){
+
+            if($this->facilitadormodel->excluir_facilitador($idfacilitador)){
+                $this->session->set_flashdata("success", "Facilitador excluido com sucesso!");
+                redirect("facilitador_list");
+            } else {
+                $this->sesison->set_flashdata("error", "Ocorreu um problema ao cadastrar o Facilitador");
+                redirect("facilitador_list");
+            }
+
+        } else {
+            $this->session->set_flashdata("error", "Facilitador não encontrado!");
+            redirect("facilitador_list");
+        }
+
     }
 
 }

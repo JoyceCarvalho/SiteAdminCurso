@@ -40,6 +40,17 @@ class Facilitador_model extends CI_Model {
     }
 
     /**
+     * Excluir dados do banco
+     *
+     * @param int $id
+     * @return boolean
+     */
+    public function excluir_facilitador($id){
+        $this->db->where("id", $id);
+        return $this->db->delete("tbfacilitador");
+    }
+
+    /**
      * Retorna dados de facilitador
      *
      * @param int $id
