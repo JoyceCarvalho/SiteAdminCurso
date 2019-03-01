@@ -145,4 +145,43 @@ class Admin extends CI_Controller {
 
     }
 
+    public function parceiros(){
+        
+        if(!isset($_SESSION["logado"]) and ($_SESSION["logado"] != true)){
+            redirect("/");
+        }
+
+        $this->load->model("parceiro_model", "parceiromodel");
+
+        $data["parceiro_dados"] = $this->parceiromodel->listar_parceiro();
+
+        $data["menu_ativo"] = "parceiro";
+        $data["submenu_ativo"] = "p_list";
+
+        $this->load->view("template-admin/html_header", $data);
+        $this->load->view("template-admin/header");
+        $this->load->view("template-admin/aside");
+        $this->load->view("admin/parceiro_list");
+        $this->load->view("template-admin/footer");
+
+    }
+
+
+    public function parceiros_form(){
+
+        if(!isset($_SESSION["logado"]) and ($_SESSION["logado"] != true)){
+            redirect("/");
+        }
+
+        $data["menu_ativo"] = "parceiro";
+        $data["submenu_ativo"] = "p_cad";
+
+        $this->load->view("template-admin/html_header", $data);
+        $this->load->view("template-admin/header");
+        $this->load->view("template-admin/aside");
+        $this->load->view("admin/parceiro_cad");
+        $this->load->view("template-admin/footer");
+
+    }
+
 }

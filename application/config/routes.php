@@ -68,4 +68,6 @@ $route["facilitador_cad"]       = "facilitador/facilitador_cadastro";
 $route["facilitador_update"]    = "admin/facilitador_edicao";
 $route["facilitador_edit"]      = "facilitador/facilitador_atualizar";
 $route["facilitador_remove"]    = "facilitador/facilitador_excluir";
+$route["parceiros_list"]        = "admin/parceiros";
+$route["parceiros_insert"]      = "admin/parceiros_form";
 $route["imagem/(:num)"]         = "imagem/img/$1";
