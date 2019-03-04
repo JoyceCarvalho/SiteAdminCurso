@@ -33,6 +33,12 @@
             <li><a class="treeview-item <?=(isset($submenu_ativo) and ($submenu_ativo == "c_list") ? "active" : "")?>" href="form-custom.html"><i class="icon fa fa-circle-o"></i> Listar</a></li>
           </ul>
         </li>
+        <li class="treeview <?=($menu_ativo == "depoimentos") ? "is-expanded" : "" ?>"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-comments"></i><span class="app-menu__label">Depoimentos</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+          <ul class="treeview-menu">
+            <li><a class="treeview-item <?=($submenu_ativo == "d_cad") ? "active" : "" ?>" href="<?=base_url("depoimentos_insert");?>"><i class="icon fa fa-circle-o"></i> Cadastrar</a></li>
+            <li><a class="treeview-item <?=($submenu_ativo == "d_list") ? "active" : "" ?>" href="<?=base_url("depoimentos_list");?>"><i class="icon fa fa-circle-o"></i> Listar</a></li>
+          </ul>
+        </li>
         <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-id-card-o"></i><span class="app-menu__label">Inscrições</span><i class="treeeview-indicator fa fa-angle-right"></i></a>
           <ul class="treeview-menu">
             <li><a class="treeview-item <?=(isset($submenu_ativo) and ($submenu_ativo == "i_cad") ? "active" : "")?>" href="<?=base_url()?>"><i class="icon fa fa-circle-o"></i> Cadastrar</a></li>

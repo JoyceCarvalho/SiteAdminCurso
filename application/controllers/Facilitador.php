@@ -102,10 +102,12 @@ class Facilitador extends CI_Controller {
             "facebook"  => $this->input->post("facebook"),
             "linkedin"  => $this->input->post("linkedin")
         );
-
-        if(!empty($this->input->post("foto_fac"))) {
+        
+        if(!empty($_FILES["foto_fac"])) {
 
             $this->load->model("imagem_model", "imagemodel");
+
+            $this->db->trans_begin();
 
             // Constantes
             define('TAMANHO_MAXIMO', (2 * 1024 * 1024));
@@ -145,23 +147,23 @@ class Facilitador extends CI_Controller {
                 "tamanho"   => $tamanho
             );
 
-            $imagem = $this->imagemodel->cadastrar_imagem($array_imagem);
+            $imagem = $this->imagemodel->alterar_imagem($array_imagem, $this->input->post("old_foto"));
 
-            if($imagem){
-                $arrayDados["fk_idfoto"] = $imagem;
-            } else {
+            if(!$imagem){
                 $this->session->set_flashdata("warning", "Ocorreu um erro! A imagem não pode ser carregada, entre em contato com o suporte e tente mais tarde novamente!");
             }
 
         }
-
+        
         if($this->facilitadormodel->editar_facilitador($arrayDados, $this->input->post("idfacilitador"))){
 
+            $this->db->trans_commit();
             $this->session->set_flashdata("success", "Dados editados com sucesso!");
             redirect("facilitador_list");
 
         } else {
 
+            $this->db->trans_rollback();
             $this->session->set_flashdata("error", "Ocorreu um problema ao atualizar os dados!");
             redirect("facilitador_list");
             

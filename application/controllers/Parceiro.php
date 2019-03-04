@@ -96,7 +96,7 @@ class Parceiro extends CI_Controller {
             "site" => $this->input->post("site")
         );
 
-        if(!empty($this->input->post("logo"))){
+        if(!empty($_FILES["logo"])){
 
             /**
              * Begin cadastro de imagem
@@ -141,14 +141,12 @@ class Parceiro extends CI_Controller {
                 "tamanho"   => $tamanho
             );
 
-            $imagem = $this->imagemodel->cadastrar_imagem($array_imagem);
+            $imagem = $this->imagemodel->alterar_imagem($array_imagem, $this->input->post("old_logo"));
             /**
              * End cadastro de imagem
              */
 
-            if($imagem){
-                $arrayDados["fk_idfoto"] = $imagem;
-            } else {
+            if(!$imagem){
                 $this->session->set_flashdata("warning", "Ocorreu um erro! A imagem não pode ser carregada, entre em contato com o suporte e tente mais tarde novamente!");
             }
 

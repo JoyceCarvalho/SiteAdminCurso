@@ -52,6 +52,7 @@ class Usuario extends CI_Controller {
             $this->load->view("template-admin/html_header");
             $this->load->view("admin/logar");
             $this->load->view("template-admin/footer");
+            
         } else {
             
             if($this->usermodel->verifica_dados($this->input->post("usuario"), $this->input->post("senha"))){

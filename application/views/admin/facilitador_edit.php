@@ -75,6 +75,7 @@
                 <div class="form-group col-sm-6">
                     <label for="exampleInputPassword1">Foto (Alterar)</label>
                     <input class="form-control" type="file" name="foto_fac">
+                    <input type="hidden" class="form-control" name="old_foto" value="<?=$facilitador->fk_idfoto?>">
                 </div>
                 <div class="form-group col-sm-6">
                     <img class="img embed-responsive" src="<?=base_url("imagem/".$facilitador->fk_idfoto)?>">

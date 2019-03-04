@@ -98,7 +98,7 @@ class Usuario_model extends CI_Model {
     public function dados_usuario($usuario){
         
         $this->db->from('cpanel_user');
-        $this->db->where("id = '{$usuario}'");
+        $this->db->where("usuario = '{$usuario}'");
         $this->db->limit(1);
 
         return $this->db->get('')->row();

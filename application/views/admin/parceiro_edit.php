@@ -62,6 +62,7 @@
                 <div class="form-group col-sm-6">
                     <label for="exampleInputPassword1">Logo</label>
                     <input class="form-control" type="file" name="logo">
+                    <input type="hidden" name="old_logo" value="<?=$parceiros->fk_idfoto?>">
                 </div>
                 <div class="form-group col-sm-6">
                     <img class="img embed-responsive" src="<?=base_url("imagem/".$parceiros->fk_idfoto)?>">
