@@ -74,4 +74,5 @@ $route["parceiros_cad"]         = "parceiro/parceiro_cadastro";
 $route["parceiros_update"]      = "admin/parceiros_edicao";
 $route["parceiros_edit"]        = "parceiro/parceiro_atualizar";
 $route["parceiros_remove"]      = "parceiro/parceiro_excluir";
+$route["curso_insert"]          = "admin/curso_form";
 $route["imagem/(:num)"]         = "imagem/img/$1";

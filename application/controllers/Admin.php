@@ -207,4 +207,21 @@ class Admin extends CI_Controller {
 
     }
 
+    public function curso_form(){
+        
+        if(!isset($_SESSION["logado"]) and $_SESSION["logado"] != true){
+            redirect("/");
+        }
+
+        $data["menu_ativo"] = "curso";
+        $data["submenu_ativo"] = "c_cad";
+
+        $this->load->view("template-admin/html_header", $data);
+        $this->load->view("template-admin/header");
+        $this->load->view("template-admin/aside");
+        $this->load->view("admin/curso_cad");
+        $this->load->view("template-admin/footer");
+
+    }
+
 }
