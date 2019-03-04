@@ -151,9 +151,9 @@ class Admin extends CI_Controller {
             redirect("/");
         }
 
-        $this->load->model("parceiro_model", "parceiromodel");
+        $this->load->model("parceiros_model", "parceirosmodel");
 
-        $data["parceiro_dados"] = $this->parceiromodel->listar_parceiro();
+        $data["parceiro_dados"] = $this->parceirosmodel->listar_parceiros();
 
         $data["menu_ativo"] = "parceiro";
         $data["submenu_ativo"] = "p_list";
@@ -180,6 +180,29 @@ class Admin extends CI_Controller {
         $this->load->view("template-admin/header");
         $this->load->view("template-admin/aside");
         $this->load->view("admin/parceiro_cad");
+        $this->load->view("template-admin/footer");
+
+    }
+
+    public function parceiros_edicao(){
+        
+        if(!isset($_SESSION["logado"]) and ($_SESSION["logado"] != true)){
+            redirect("/");
+        }
+
+        $id = $this->input->post("idparceiros");
+
+        $this->load->model("parceiros_model", "parceiromodel");
+
+        $data["parceiros"] = $this->parceiromodel->dados_parceiros($id);
+
+        $data["menu_ativo"] = "parceiro";
+        $data["submenu_ativo"] = "p_list";
+
+        $this->load->view("template-admin/html_header", $data);
+        $this->load->view("template-admin/header");
+        $this->load->view("template-admin/aside");
+        $this->load->view("admin/parceiro_edit");
         $this->load->view("template-admin/footer");
 
     }

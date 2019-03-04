@@ -23,8 +23,8 @@
         </li>
         <li class="treeview <?=($menu_ativo == "parceiro") ? "is-expanded" : "" ?>"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-handshake-o "></i><span class="app-menu__label">Parceiros</span><i class="treeview-indicator fa fa-angle-right"></i></a>
           <ul class="treeview-menu">
-            <li><a class="treeview-item <?=(isset($submenu_ativo) and ($submenu_ativo == "p_cad") ? "active" : "")?>" href="table-basic.html"><i class="icon fa fa-circle-o"></i> Cadastrar</a></li>
-            <li><a class="treeview-item <?=(isset($submenu_ativo) and ($submenu_ativo == "p_list") ? "active" : "")?>" href="table-data-table.html"><i class="icon fa fa-circle-o"></i> Listar</a></li>
+            <li><a class="treeview-item <?=($submenu_ativo == "p_cad") ? "active" : "" ?>" href="<?=base_url("parceiros_insert");?>"><i class="icon fa fa-circle-o"></i> Cadastrar</a></li>
+            <li><a class="treeview-item <?=($submenu_ativo == "p_list") ? "active" : "" ?>" href="<?=base_url("parceiros_list");?>"><i class="icon fa fa-circle-o"></i> Listar</a></li>
           </ul>
         </li>
         <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-edit"></i><span class="app-menu__label">Cursos</span><i class="treeview-indicator fa fa-angle-right"></i></a>

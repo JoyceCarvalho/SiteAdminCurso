@@ -1,31 +1,36 @@
 <?php
 defined("BASEPATH") or exit("No direct script access allowed");
 
-class Facilitador extends CI_Controller {
+class Parceiro extends CI_Controller {
     
     public function __construct(){
         parent::__construct();
+
+        $this->load->model("parceiros_model", "parceirosmodel");
     }
 
-    public function facilitador_cadastro(){
-
-        if(!isset($_SESSION["logado"]) and $_SESSION["logado"] != true){
+    public function parceiro_cadastro(){
+        
+        if(!isset($_SESSION["logado"]) and ($_SESSION["logado"] != true)){
             redirect("/");
         }
 
+        /**
+         * Begin cadastro de imagem
+         */
         $this->load->model("imagem_model", "imagemodel");
 
         // Constantes
         define('TAMANHO_MAXIMO', (2 * 1024 * 1024));
         
         // Verificando se selecionou alguma imagem
-        if (!isset($_FILES['foto_fac'])){
+        if (!isset($_FILES['logo'])){
             $this->session->set_flashdata('warning', 'Selecione uma imagem!');
-            redirect("facilitador_insert");
+            redirect("parceiros_insert");
         }
         
         // Recupera os dados dos campos
-        $foto = $_FILES['foto_fac'];
+        $foto = $_FILES['logo'];
         $nome = $foto['name'];
         $tipo = $foto['type'];
         $tamanho = $foto['size'];
@@ -34,13 +39,13 @@ class Facilitador extends CI_Controller {
         // Formato
         if(!preg_match('/^image\/(pjpeg|jpeg|png|gif|bmp)$/', $tipo)) {
             $this->session->set_flashdata("error", 'Isso não é uma imagem válida');
-            redirect("facilitador_insert");
+            redirect("parceiros_insert");
         }
         
         // Tamanho
         if ($tamanho > TAMANHO_MAXIMO){
             $this->session->set_flashdata('error', 'A imagem deve possuir no máximo 2 MB');
-            redirect("facilitador_insert");
+            redirect("parceiros_insert");
         }
         
         // Transformando foto em dados (binário)
@@ -54,70 +59,61 @@ class Facilitador extends CI_Controller {
         );
 
         $imagem = $this->imagemodel->cadastrar_imagem($array_imagem);
+        /**
+         * End cadastro de imagem
+         */
 
         if($imagem){
 
-            $this->load->model('facilitador_model', 'facilitadormodel');
-
-            $dados = array(
+            $arrayDados = array(
                 "nome"      => $this->input->post("nome"),
-                "graduacao" => $this->input->post("formacao"),
-                "facebook"  => $this->input->post("facebook"),
-                "linkedin"  => $this->input->post("linkedin"),
+                "site"      => $this->input->post("site"),
                 "fk_idfoto" => $imagem
             );
-
-            if($this->facilitadormodel->cadastrar_facilitador($dados)){
-
-                $this->session->set_flashdata("success", "Facilitador cadastrado com sucesso!");
-                redirect("facilitador_insert");
-
+    
+            if($this->parceirosmodel->cadastrar_parceiros($arrayDados)){
+                $this->session->set_flashdata("success", "Parceiro cadastrado com sucesso!");
+                redirect("parceiros_insert");
             } else {
-
-                $this->session->set_flashdata("error", "Ocorreu um erro ao cadastrar o facilitador! Favor entre em contato com o suporte.");
-                redirect("facilitador_insert");
-
+                $this->session->set_flashdata("error", "Ocorreu um erro ao cadastrar parceiro! Favor entre em contato com o suporte e tente novamente mais tarde.");
+                redirect("parceiros_insert");
             }
 
         } else {
-
-            $this->session->set_flashdata("error", "Ocorreu um erro ao cadastrar o facilitador! Favor entre em contato com o suporte.");
-            redirect("facilitador_insert");
-
+            $this->session->set_flashdata("error", "Ocorreu um erro ao cadastrar parceiro! Favor entre em contato com o suporte e tente novamente mais tarde");
         }
 
     }
 
-    public function facilitador_atualizar(){
+    public function parceiro_atualizar(){
 
-        if((!isset($_SESSION["logado"])) and ($_SESSION["logado"] != true)){
+        if(!isset($_SESSION["logado"]) and ($_SESSION["logado"] != true)){
             redirect("/");
         }
 
-        $this->load->model("facilitador_model", "facilitadormodel");
-
         $arrayDados = array(
-            "nome"      => $this->input->post("nome"),
-            "graduacao" => $this->input->post("formacao"),
-            "facebook"  => $this->input->post("facebook"),
-            "linkedin"  => $this->input->post("linkedin")
+            "nome" => $this->input->post("nome"),
+            "site" => $this->input->post("site")
         );
 
-        if(!empty($this->input->post("foto_fac"))) {
+        if(!empty($this->input->post("logo"))){
 
+            /**
+             * Begin cadastro de imagem
+             */
             $this->load->model("imagem_model", "imagemodel");
 
             // Constantes
             define('TAMANHO_MAXIMO', (2 * 1024 * 1024));
             
             // Verificando se selecionou alguma imagem
-            if (!isset($_FILES['foto_fac'])){
+            if (!isset($_FILES['logo'])){
                 $this->session->set_flashdata('warning', 'Selecione uma imagem!');
-                redirect("facilitador_insert");
+                redirect("parceiros_insert");
             }
             
             // Recupera os dados dos campos
-            $foto = $_FILES['foto_fac'];
+            $foto = $_FILES['logo'];
             $nome = $foto['name'];
             $tipo = $foto['type'];
             $tamanho = $foto['size'];
@@ -126,13 +122,13 @@ class Facilitador extends CI_Controller {
             // Formato
             if(!preg_match('/^image\/(pjpeg|jpeg|png|gif|bmp)$/', $tipo)) {
                 $this->session->set_flashdata("error", 'Isso não é uma imagem válida');
-                redirect("facilitador_insert");
+                redirect("parceiros_insert");
             }
             
             // Tamanho
             if ($tamanho > TAMANHO_MAXIMO){
                 $this->session->set_flashdata('error', 'A imagem deve possuir no máximo 2 MB');
-                redirect("facilitador_insert");
+                redirect("parceiros_insert");
             }
             
             // Transformando foto em dados (binário)
@@ -146,6 +142,9 @@ class Facilitador extends CI_Controller {
             );
 
             $imagem = $this->imagemodel->cadastrar_imagem($array_imagem);
+            /**
+             * End cadastro de imagem
+             */
 
             if($imagem){
                 $arrayDados["fk_idfoto"] = $imagem;
@@ -155,43 +154,37 @@ class Facilitador extends CI_Controller {
 
         }
 
-        if($this->facilitadormodel->editar_facilitador($arrayDados, $this->input->post("idfacilitador"))){
-
-            $this->session->set_flashdata("success", "Dados editados com sucesso!");
-            redirect("facilitador_list");
-
+        if($this->parceirosmodel->editar_parceiros($arrayDados, $this->input->post("idparceiros"))){
+            $this->session->set_flashdata("success", "Parceiro editado com sucesso!");
+            redirect("parceiros_list");
         } else {
-
-            $this->session->set_flashdata("error", "Ocorreu um problema ao atualizar os dados!");
-            redirect("facilitador_list");
-            
+            $this->session->set_flashdata("error", "Ocorreu um problema ao editar parceiros! Favor entre em contato com o suporte e tente novamente mais tarde");
+            redirect("parceiros_list");
         }
 
     }
 
-    public function facilitador_excluir(){
+    public function parceiro_excluir(){
 
-        if(!isset($_SESSION["logado"]) and ($_SESSION["logado"] != true)){
+        if(!isset($_SESSION["logado"]) and $_SESSION["logado"] != true){
             redirect("/");
         }
 
-        $idfacilitador = $this->input->post("idfacilitador");
+        $id = $this->input->post("idparceiros");
 
-        $this->load->model("facilitador_model", "facilitadormodel");
+        if(!empty($id)){
+            if($this->parceirosmodel->excluir_parceiros($id)){
 
-        if(!empty($idfacilitador)){
-
-            if($this->facilitadormodel->excluir_facilitador($idfacilitador)){
-                $this->session->set_flashdata("success", "Facilitador excluido com sucesso!");
-                redirect("facilitador_list");
+                $this->session->set_flashdata("success", "Parceiro excluido com sucesso!");
+                redirect("parceiros_list");
+                
             } else {
-                $this->sesison->set_flashdata("error", "Ocorreu um problema ao cadastrar o Facilitador");
-                redirect("facilitador_list");
+                $this->session->set_flashdata("error", "Ocorreu um problema ao excluir parceiro! Entre em contato com o suporte e tente novamente mais tarde!");
+                redirect("parceiros_list");
             }
-
         } else {
-            $this->session->set_flashdata("error", "Facilitador não encontrado!");
-            redirect("facilitador_list");
+            $this->session->set_flashdata("error", "Parceiro não encontrado! Entre em contato com o suporte e tente novamente mais tarde");
+            redirect("parceiro_list");
         }
 
     }
